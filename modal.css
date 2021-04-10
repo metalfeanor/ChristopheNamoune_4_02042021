@@ -11,7 +11,6 @@
 /* Landing Page */
 
 body {
-  margin: 0;
   display: flex;
   flex-direction: column;
   /*background-image: url("background.png");*/
@@ -33,12 +32,13 @@ img {
 .topnav {
   overflow: hidden;
   margin: 3.5%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 .header-logo {
   float: left;
-}
-.main-navbar {
-  float: right;
 }
 .topnav a {
   float: left;
@@ -68,7 +68,7 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 540px) {
   .topnav a {
     display: none;
   }
@@ -79,8 +79,17 @@ img {
 }
 
 @media screen and (max-width: 768px) {
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
   .topnav.responsive {
     position: relative;
+    flex-flow: column wrap;
+    align-items: initial;
   }
   .topnav.responsive .icon {
     position: absolute;
@@ -91,17 +100,6 @@ img {
     float: none;
     display: block;
     text-align: left;
-  }
-}
-
-@media screen and (max-width: 540px) {
-  .topnav a {
-    display: none;
-  }
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
   }
 }
 
@@ -241,7 +239,7 @@ input[data-error]::after {
   flex-flow: wrap;
   align-items: center;
   padding: 20%;
-  height: 96vh;
+  height: 90vh;
 }
 
 /* Error Message */
@@ -369,6 +367,9 @@ input[data-error]::after {
   border: 0;
   align-self: flex-end;
 }
+.btn-close:hover {
+  background: #3876ac;
+}
 /* custom select styles */
 .custom-select {
   position: relative;
@@ -439,6 +440,28 @@ input[data-error]::after {
 .text-label {
   font-weight: normal;
   font-size: 16px;
+}
+@media screen and (max-width: 540px) {
+  .content {
+    margin: 20% auto;
+  }
+  label {
+    margin-bottom: 7px;
+    margin-top: 5px;
+    font-size: 14px;
+  }
+  .text-control {
+    height: 30px;
+  }
+  .modal-body {
+    margin: auto;
+  }
+  .text-label {
+    font-size: 14px;
+  }
+  .btn-submit {
+    padding: 6px 50px;
+  }
 }
 .hero-section {
   min-height: 93vh;
@@ -514,6 +537,12 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+@media screen and (max-width: 1000px) {
+  .hero-headline {
+    font-size: 4.5rem;
+  }
+}
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
@@ -523,6 +552,7 @@ footer {
     background: #fff;
     color: #000;
     padding: 20px;
+    min-width: 100%;
   }
   .hero-content::after {
     content: unset;
@@ -531,7 +561,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 3.5rem;
     white-space: normal;
   }
   .hero-text {
