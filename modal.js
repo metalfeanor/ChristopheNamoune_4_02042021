@@ -7,11 +7,15 @@ function editNav() {
   }
 }
 
+//not possible to select birthdate in future
+const date = new Date().toISOString().split("T")[0];
+document.getElementsByName("birthdate")[0].setAttribute("max", date);
+
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBody = document.querySelector(".modal-body");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const modalCloseBtn = document.querySelectorAll(".close");
+const modalCloseBtn = document.querySelector(".close");
 const dataSendCloseBtn = document.querySelector(".btn-close");
 //const formData = document.querySelectorAll(".formData");
 const copyright = document.querySelector(".copyrights");
@@ -22,7 +26,7 @@ const locationInputData = document.getElementsByName("location");
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 // close modal event
-modalCloseBtn.forEach((e) => e.addEventListener("click", closeModal));
+modalCloseBtn.addEventListener("click", closeModal);
 dataSendCloseBtn.addEventListener("click", closeModal);
 // launch modal form
 function launchModal() {
@@ -31,6 +35,13 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.style.display = "none";
+  //reset modal when closing after data sended
+  if (formTransmitted.style.display === "flex") {
+    form.reset();
+    modalBody.style.display = "block";
+    dataSendCloseBtn.style.display = "none";
+    formTransmitted.style.display = "none";
+  }
 }
 
 //insert copyright with automatically good actual year
@@ -47,38 +58,40 @@ function checkInputs() {
   //DOM element for error message
   const radioError = document.querySelector(".radio-error");
   const checkboxError = document.querySelector(".checkbox-error");
-
-  //select parent element to radio input
-  const parentRadioElt = document.getElementById("location1").parentElement;
-
-  //select parent element to checkbox input
-  const parentCheckboxElt = document.getElementById("checkbox1").parentElement;
+  const radioIcon = document.querySelectorAll(
+    "label.checkbox-label > span.checkbox-icon"
+  );
+  const checkboxIcon = document.querySelector(
+    "label.checkbox2-label > span.checkbox-icon"
+  );
 
   if (!data.location) {
-    parentRadioElt.classList.add("border-error");
     //error message
     radioError.innerHTML = "Merci de bien vouloir sélectionner une ville !";
+    //change borderColor to red when no radio selected
+    radioIcon.forEach((item) => {
+      item.style.borderColor = "red";
+    });
   }
   if (data.location) {
-    if (parentRadioElt.classList.contains("border-error")) {
-      //remove radiobox class
-      parentRadioElt.classList.remove("border-error");
-      //remove error message
-      radioError.innerHTML = "";
-    }
+    //remove error message
+    radioError.innerHTML = "";
+    //remove red border to original color
+    radioIcon.forEach((item) => {
+      item.style.borderColor = "#279e7a";
+    });
   }
   if (!data.checkbox1) {
-    parentCheckboxElt.classList.add("border-error");
+    //add red border to checkbox
+    checkboxIcon.style.border = "2px solid red";
     //error message
     checkboxError.innerHTML = "Merci d'accepter les conditions d'utilisation !";
   }
   if (data.checkbox1) {
-    if (parentCheckboxElt.classList.contains("border-error")) {
-      //remove radiobox class
-      parentCheckboxElt.classList.remove("border-error");
-      //remove error message
-      checkboxError.innerHTML = "";
-    }
+    //remove border to checkbox
+    checkboxIcon.style.border = "";
+    //remove error message
+    checkboxError.innerHTML = "";
   }
 
   if (data.hasOwnProperty("location") && data.hasOwnProperty("checkbox1")) {

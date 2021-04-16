@@ -76,6 +76,9 @@ img {
     float: right;
     display: block;
   }
+  img {
+    height: 30px;
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -247,11 +250,6 @@ input[data-error]::after {
   font-size: 16px;
   color: #f00;
   text-align: center;
-}
-.border-error {
-  border: 2px solid red;
-  border-radius: 0.2em;
-  padding-right: 5px;
 }
 
 .checkbox-label,
@@ -580,6 +578,26 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+}
+@media screen and (max-width: 540px) {
+  .hero-headline {
+    font-size: 2.2rem;
+  }
+  .hero-content {
+    padding: 6px;
+  }
+  .hero-text {
+    margin-top: 25px;
+  }
+}
+@media screen and (max-width: 540px) {
+  .hero-headline {
+    font-size: 1.9rem;
+  }
+  .hero-text {
+    margin-top: 25px;
+    font-size: 1.2rem;
   }
 }
 
