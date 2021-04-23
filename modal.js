@@ -84,7 +84,7 @@ function minLengthIsOK(field, data, size) {
   if (data.length < size) {
     setStatus(
       field,
-      `Merci de renseigner au minimum ${size} charactères!`,
+      `Merci de renseigner au minimum ${size} charactères.`,
       "error"
     );
   } else {
@@ -107,19 +107,19 @@ function validateFields(field) {
       field,
       `Le Champ ${
         field.parentElement.querySelector("label").innerText
-      } ne peut être vide !`,
+      } ne peut être vide.`,
       "error"
     );
   }
   // check for a valid email address
   else if (field.type === "email") {
-    const regex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (regex.test(field.value)) {
       setStatus(field, null, "success");
     } else {
       setStatus(
         field,
-        "Merci de renseigner une adresse email valide !",
+        "Merci de renseigner une adresse email valide.",
         "error"
       );
     }
@@ -197,7 +197,7 @@ function checkInputs() {
   const data = Object.fromEntries(entries);
   //get all fields of form to check if nothing is missing
   const fields = Object.keys(data);
-  console.log(data, fields.length);
+  //console.log(data, fields);
 
   //verify if someone modify input form before sending data
   fieldIsMissing();
@@ -212,17 +212,13 @@ function checkInputs() {
   //if a city is not selected => error message to user
   if (fields.indexOf(location) === -1) {
     const field = document.querySelector("div.formData input[type='radio']");
-    setStatus(field, "Merci de bien vouloir sélectionner une ville !", "error");
+    setStatus(field, "Merci de bien vouloir sélectionner une ville.", "error");
   }
 
   //if terms and conditions not accepted => error message to user
   if (fields.indexOf(checkbox1) === -1) {
     const field = document.querySelector("div.formData input[type='checkbox']");
-    setStatus(
-      field,
-      "Merci d'accepter les conditions d'utilisation !",
-      "error"
-    );
+    setStatus(field, "Merci d'accepter les conditions d'utilisation.", "error");
   }
 
   fields.forEach((field) => {
@@ -250,10 +246,9 @@ function checkInputs() {
   ) {
     modalBody.style.display = "none";
     dataSendCloseBtn.style.display = "block";
-    formTransmitted.style.display = "flex";
+    formTransmitted.style.display = "flex"; ///
     /*****here send information to backend data format Json ***/
-    /***console.log(JSON.stringify(data));*////
-    return true;
+    /***console.log(JSON.stringify(data));*/ return true;
   } else {
     return false;
   }
